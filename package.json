@@ -1,0 +1,33 @@
+{
+    "name": "elfparser",
+    "version": "0.0.1",
+    "description": "Parse ELF binaries and resolve DWARF symbol locations.",
+    "license": "ISC",
+    "type": "commonjs",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./lib/index.d.ts",
+            "require": "./lib/index.js",
+            "default": "./lib/index.js"
+        }
+    },
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "install": "if ! command -v rustup >/dev/null 2>&1; then curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; . \"$HOME/.cargo/env\"; fi && rustup target add wasm32-unknown-unknown && if ! command -v wasm-bindgen >/dev/null 2>&1; then cargo install wasm-bindgen-cli --locked; fi",
+        "build:wasm": "cargo build --manifest-path wasm-elf-parser/Cargo.toml --target wasm32-unknown-unknown --release",
+        "build:bindings": ". \"$HOME/.cargo/env\" 2>/dev/null || true; rm -rf lib/wasm && mkdir -p lib/wasm && wasm-bindgen wasm-elf-parser/target/wasm32-unknown-unknown/release/wasm_elf_parser.wasm --out-dir lib/wasm --target nodejs",
+        "build:typescript": "tsc",
+        "build": "npm run build:wasm && npm run build:bindings && npm run build:typescript",
+        "prepack": "npm run build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "@types/node": "^26.6.2",
+        "tsx": "^4.23.15",
+        "typescript": "^7.0.2"
+    }
+}

@@ -1,0 +1,6 @@
+node_modules/
+src/
+wasm-elf-parser/src/
+wasm-elf-parser/target/
+tsconfig.json
+.prettierrc
