@@ -1,5 +1,4 @@
 use wasm_bindgen::prelude::*;
-use object::Object;
 use addr2line::Context;
 use js_sys::{Array, Object as JsObject, Reflect};
 
