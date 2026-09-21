@@ -26,12 +26,15 @@ jobs:
               with:
                   targets: wasm32-unknown-unknown
 
+            - name: Install Cargo dependencies
+              run: cargo fetch --manifest-path wasm-elf-parser/Cargo.toml
+
             - name: Cache Cargo dependencies
               uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
               with:
                   workspaces: wasm-elf-parser -> target
 
-            - name: Install dependencies
+            - name: Install Node dependencies
               run: npm ci
 
             - name: Build project
