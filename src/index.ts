@@ -81,7 +81,7 @@ export interface ElfSection {
     entSize: bigint;
 }
 
-export interface ElfSymbol {
+interface RawElfSymbol {
     index: number;
     name: string;
     value: bigint;
@@ -92,9 +92,9 @@ export interface ElfSymbol {
     sectionIndex: number;
 }
 
-export interface ElfSymbolWithLocation extends ElfSymbol {
-    file: string;
-    line: number | "??";
+export interface ElfSymbol extends RawElfSymbol {
+    file: string | undefined;
+    line: number | undefined;
 }
 
 // --- PARSER CLASS ---
@@ -228,8 +228,8 @@ export class ElfParser {
         }
     }
 
-    public getSymbols(): ElfSymbol[] {
-        const symbols: ElfSymbol[] = [];
+    private getRawSymbols(): RawElfSymbol[] {
+        const symbols: RawElfSymbol[] = [];
 
         // Find Symbol Table (.symtab) and Dynamic Symbol Table (.dynsym)
         const symSections = this.sections.filter(
@@ -332,17 +332,17 @@ export class ElfParser {
         return symbols;
     }
 
-    public getSymbolsWithLocation(): ElfSymbolWithLocation[] {
-        const symbols = this.getSymbols();
+    public getSymbols(): ElfSymbol[] {
+        const symbols = this.getRawSymbols();
         const addresses = symbols.map((symbol) => symbol.value);
-        const resolvedSymbols: { file?: string; line?: number }[] =
-            resolve_symbols(this.buffer, BigUint64Array.from(addresses));
-        return symbols.map((symbol, index) => {
-            const loc = resolvedSymbols[index];
-            const file = loc?.file || "??";
-            const line = loc?.line !== undefined ? loc.line : "??";
-            return { ...symbol, file, line };
-        });
+        const resolvedSymbols: {
+            file: string | undefined;
+            line: number | undefined;
+        }[] = resolve_symbols(this.buffer, BigUint64Array.from(addresses));
+        return symbols.map((symbol, index) => ({
+            ...symbol,
+            ...resolvedSymbols[index],
+        }));
     }
 
     // --- UTILITIES ---
@@ -367,26 +367,4 @@ export class ElfParser {
         );
         return this.textDecoder.decode(stringBytes);
     }
-}
-
-// if called as main
-if (require.main === module) {
-    const filePath = process.argv[2];
-    if (!filePath) {
-        console.error("Usage: node ElfParser.js <elf-file>");
-        process.exit(1);
-    }
-    const buffer = readFileSync(filePath);
-
-    console.time("Parsing ELF");
-    const parser = new ElfParser(buffer);
-    const symbols = parser.getSymbolsWithLocation();
-    console.timeEnd("Parsing ELF");
-
-    console.info(parser.header);
-
-    // Print all symbols with detailed inspection, one symbol per line
-    symbols.forEach((symbol) => {
-        console.info(inspect(symbol, { compact: true, breakLength: 400 }));
-    });
 }
