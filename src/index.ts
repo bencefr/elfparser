@@ -211,7 +211,10 @@ export class ElfParser {
         }
 
         // Second pass: resolve section names using the Section Header String Table (.shstrtab)
-        if (this.header.shStrIndex !== 0) {
+        if (
+            this.header.shStrIndex !== 0 &&
+            this.header.shStrIndex < this.sections.length
+        ) {
             this.sectionNamesSection = this.sections[this.header.shStrIndex]!;
             const strTabOffset = Number(this.sectionNamesSection.offset);
 
