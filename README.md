@@ -77,6 +77,32 @@ console.log(parser.header);
 console.log(parser.getSymbols());
 ```
 
+## Unnamed symbols
+
+`getSymbols()` includes all entries from the ELF symbol tables, including
+entries without a name. These entries can still be useful when inspecting ELF
+metadata:
+
+- The first entry is the mandatory ELF null symbol. It has no name and a zero
+  value.
+- Unnamed `STT_SECTION` entries identify sections and can be useful for
+  low-level inspection, relocation, or debugging.
+
+For application-level symbol lookup, filter out unnamed entries. To find
+functions, filter by symbol type as well:
+
+```ts
+const namedSymbols = parser.getSymbols().filter((symbol) => symbol.name !== "");
+
+const functions = parser
+    .getSymbols()
+    .filter(
+        (symbol) =>
+            symbol.name !== "" &&
+            (symbol.type === "STT_FUNC" || symbol.type === "STT_NOTYPE"),
+    );
+```
+
 ## License
 
 ISC
