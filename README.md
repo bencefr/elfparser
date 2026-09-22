@@ -1,3 +1,5 @@
+[![Build](https://github.com/bencefr/elfparser/actions/workflows/build.yml/badge.svg)](https://github.com/bencefr/elfparser/actions/workflows/build.yml)
+
 # ELF Parser
 
 A TypeScript library for parsing ELF binaries and resolving DWARF line information for symbol addresses.
