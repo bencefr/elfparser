@@ -20,8 +20,6 @@ A TypeScript library for parsing ELF binaries and resolving DWARF line informati
 ## Prerequisites
 
 - Node.js 22+
-- Rust toolchain with `wasm32-unknown-unknown` target
-- `wasm-bindgen-cli`
 
 ## Install
 
@@ -29,7 +27,14 @@ A TypeScript library for parsing ELF binaries and resolving DWARF line informati
 npm install
 ```
 
-This installs the required Rust tooling and WASM target when needed.
+The published package includes the generated WASM files, so installing it does not require Rust.
+
+## Build prerequisites
+
+Building the WASM implementation from source requires:
+
+- Rust toolchain with the `wasm32-unknown-unknown` target
+- `wasm-bindgen-cli`
 
 ## Build
 

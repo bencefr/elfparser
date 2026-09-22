@@ -17,7 +17,6 @@
         "lib"
     ],
     "scripts": {
-        "install": "if ! command -v rustup >/dev/null 2>&1; then curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; . \"$HOME/.cargo/env\"; fi && rustup target add wasm32-unknown-unknown && if ! command -v wasm-bindgen >/dev/null 2>&1; then cargo install wasm-bindgen-cli --locked; fi",
         "build:wasm": "cargo build --manifest-path wasm-elf-parser/Cargo.toml --target wasm32-unknown-unknown --release",
         "build:bindings": ". \"$HOME/.cargo/env\" 2>/dev/null || true; rm -rf lib/wasm && mkdir -p lib/wasm && wasm-bindgen wasm-elf-parser/target/wasm32-unknown-unknown/release/wasm_elf_parser.wasm --out-dir lib/wasm --target nodejs",
         "build:typescript": "tsc",
