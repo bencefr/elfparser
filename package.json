@@ -1,6 +1,6 @@
 {
     "name": "elfparser",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Parse ELF binaries and resolve DWARF symbol locations.",
     "license": "ISC",
     "type": "commonjs",
