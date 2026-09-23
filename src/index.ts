@@ -1,5 +1,3 @@
-import { readFileSync } from "fs";
-import { inspect } from "util";
 import { resolve_symbols } from "../lib/wasm/wasm_elf_parser";
 
 // --- ENUMS & INTERFACES ---
