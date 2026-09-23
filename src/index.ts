@@ -336,10 +336,9 @@ export class ElfParser {
     public getSymbols(): ElfSymbol[] {
         const symbols = this.getRawSymbols();
         const addresses = symbols.map((symbol) => symbol.value);
-        const resolvedSymbols: {
-            file: string | undefined;
-            line: number | undefined;
-        }[] = resolve_symbols(this.buffer, BigUint64Array.from(addresses));
+        const names = symbols.map((symbol) => symbol.name);
+        const resolvedSymbols: Pick<ElfSymbol, "file" | "line">[] =
+            resolve_symbols(this.buffer, BigUint64Array.from(addresses), names);
         return symbols.map((symbol, index) => ({
             ...symbol,
             ...resolvedSymbols[index],

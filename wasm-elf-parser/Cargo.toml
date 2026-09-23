@@ -10,4 +10,5 @@ crate-type = ["cdylib"] # Tells Rust to compile this as a dynamic library (WASM)
 wasm-bindgen = "0.2"
 object = "0.32"       # For parsing the ELF file
 addr2line = "0.21"    # For parsing DWARF debug lines
+gimli = "0.28"        # For DW_AT_decl_file/DW_AT_decl_line lookups on data symbols
 js-sys = "0.3"
