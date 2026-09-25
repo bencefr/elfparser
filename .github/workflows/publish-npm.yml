@@ -35,4 +35,4 @@ jobs:
                   echo "PACKAGE_FILE=$package_file" >> "$GITHUB_ENV"
 
             - name: Publish package
-              run: npm publish "$PACKAGE_FILE" --provenance --access public
+              run: npm stage publish "$PACKAGE_FILE" --provenance --access public
