@@ -1,8 +1,31 @@
 {
-    "name": "elfparser",
-    "version": "0.0.2",
+    "name": "@bencefrenyo/elfparser",
+    "version": "0.1.0",
     "description": "Parse ELF binaries and resolve DWARF symbol locations.",
-    "license": "ISC",
+    "license": "Apache License 2.0",
+    "author": "Bence Frenyo",
+    "publisher": "Bence Frenyo",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bencefr/elfparser"
+    },
+    "categories": [
+        "Debuggers"
+    ],
+    "keywords": [
+        "elf",
+        "elf-parser",
+        "elf-binary",
+        "dwarf",
+        "debug-symbols",
+        "symbol-table",
+        "binary-analysis",
+        "wasm",
+        "webassembly",
+        "typescript",
+        "nodejs",
+        "debugging"
+    ],
     "type": "commonjs",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
