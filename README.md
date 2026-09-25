@@ -12,13 +12,6 @@ A TypeScript library for parsing ELF binaries and resolving DWARF line informati
 - Expose a Node-friendly TypeScript API
 - Build a Rust-backed WebAssembly implementation for fast symbol lookup
 
-## Project layout
-
-- `src/index.ts` - TypeScript entry point for the package
-- `lib/` - generated JavaScript and declaration output
-- `wasm-elf-parser/` - Rust crate that produces the WebAssembly parser
-- `.github/workflows/build.yml` - CI build workflow
-
 ## Prerequisites
 
 - Node.js 22+
@@ -105,4 +98,4 @@ const functions = parser
 
 ## License
 
-ISC
+Apache License 2.0
